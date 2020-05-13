@@ -53,35 +53,23 @@ for i=1:1 % length(matfiles) - 2
     STATIC = {SIT, LAY, STAND};
     TRANSITION = {STAND2SIT, SIT2STAND, SIT2LIE, LIE2SIT, STAND2LIE, LIE2STAND};
     
-    % Raw signal w/ windowing
-        % Hann (good for most cases, eliminates discontinuities)
-%     viewThroughWindow(W, "hann");
-%     viewThroughWindow(SIT, "hann");
-%     viewThroughWindow(STAND2SIT, "hann");
-    
-        % Hamming (good freq.res, detects fair amount of m components)
-%     viewThroughWindow(W, "hamming");
-%     viewThroughWindow(SIT, "hamming");
-%     viewThroughWindow(STAND2SIT, "hamming");
-    
     % DFT w/out windowing (aka rectangular window)
     dftDINAMIC = calcActivityDFT(DINAMIC, fs);
     dftSTATIC = calcActivityDFT(STATIC, fs);
     dftTRANSITION = calcActivityDFT(TRANSITION, fs);
     
     % DFT w/ windowing
-%     figure(2);
-        %Hann (good for most cases, eliminates discontinuities)
-%     viewThroughWindow(dftDINAMIC{1}, "hann");
-%     viewThroughWindow(dftSTATIC{1}, "hann");
-    viewThroughWindow(dftTRANSITION{1}, "hann");
+    %figure(2);
+    %Hann (good for most cases, eliminates discontinuities)
+    %viewThroughWindow(W, "hann");
+    %viewThroughWindow(SIT, "hann");
+    %STAND2SITHann = viewThroughWindow(STAND2SIT, "hann");
     
-        %Hamming (good freq.res, detects fair amount of m components)
-%     figure(3);
-%     viewThroughWindow(dftDINAMIC{1}, "hamming");
-%     viewThroughWindow(dftSTATIC{1}, "hamming");
-    viewThroughWindow(dftTRANSITION{1}, "hamming");
-
+    %Hamming (good freq.res, detects fair amount of m components)
+%     viewThroughWindow(W, "hamming");
+%     viewThroughWindow(SIT, "hamming");
+%     viewThroughWindow(STAND2SIT, "hamming");
+    
     % 4.2 - Step stats
     
     
