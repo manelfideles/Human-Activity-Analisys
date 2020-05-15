@@ -36,7 +36,7 @@ for i=1:1 %length(matfiles) - 2
     %figure(i);
     plotExperiment(sample_time, acc_x, acc_y, ...
         acc_z, label_start, label_end, activity_labels, ...
-        activity_id, experiment_window);Dis
+        activity_id, experiment_window);
     
     % 4 - ANALYSIS
     % 4.1 - Calculating the DFT and comparing windows
@@ -104,16 +104,23 @@ for i=1:1 %length(matfiles) - 2
     
     
     % 4.3 - Distinguishing dynamic from static/transition activities
+    
     % Comparing signals amplitude-wise
     %plotMaxAmplitude(DINAMICwin, STATICwin, TRANSITIONwin);
+    
     % Comparing signals frequency-wise
-    plotMaxFrequency(dftDINAMICwin, dftSTATICwin, dftTRANSITIONwin, fs);
-    % Comparing signals period-wise
-    %plotDuration()
+    %plotMaxFrequency(dftDINAMICwin, dftSTATICwin, dftTRANSITIONwin, fs);
     
     % 4.4 - Distinguishing non-dynamic activities
     
-
+    % Comparing signals period-wise
+    % Olhando para o sinal original, podemos imediatamente observar que as
+    % atividades de transição são muito mais curtas que as atividades
+    % estáticas. Sendo assim, iremos usar a sua duração como métrica de
+    % comparação.
+    %plotDuration(STATICwin, TRANSITIONwin, fs);
+    
+    
     % 4.5 - Distinguishing dynamic activities
     % Empiricamente, a única diferença entre W, WU, WD é a quantidade
     % de deslocamento no eixo dos ZZ. Assim sendo, optamos por isolar e
