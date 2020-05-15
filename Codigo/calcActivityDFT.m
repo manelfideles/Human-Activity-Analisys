@@ -5,7 +5,7 @@ function dftACT = calcActivityDFT(activities, fs)
         ACT = activities{i};
         dftAXIS = {};
         for j=1:3
-            OCC = ACT{1};
+            OCC = ACT{j};
             dftOCC = {};
             for k=1:length(OCC)
                 dft = abs(fftshift(fft(OCC{k})));
@@ -24,6 +24,5 @@ function dftACT = calcActivityDFT(activities, fs)
 %         f = -fs/2+fs/(2*L) : fs/L : fs/2-fs/(2*L);
 %     end
     
-    % plotting here
 end
 

@@ -1,15 +1,25 @@
-function aux = viewThroughWindow(activity, type)
-    xx = activity{1,1}{1,1};
-    yy = activity{1,2}{1,1};
-    zz = activity{1,3}{1,1};
-    if (type == "hann")
-        window = hann(length(xx));
-        aux = xx .* window;
-        %wvtool(window);
-    else
-        window = hamming(length(xx));
-        aux = xx .* window;
-        %wvtool(window);
+function ACTwin = viewThroughWindow(ACTIVITIES, window_type)
+    ACTwin = {};
+    for i = 1 : length(ACTIVITIES)
+        ACT = ACTIVITIES{i};
+        AXISwin = {};
+        for j = 1:3
+            OCC = ACT{j};
+            OCCwin = {};
+            for k = 1:length(OCC)
+                VEC = OCC{k};
+                if (window_type == "hann")
+                    window = hann(length(VEC));
+                    %wvtool(window);
+                else
+                    window = hamming(length(VEC));
+                    %wvtool(window);
+                end
+                OCCwin{k} = VEC .* window;
+            end
+            AXISwin{j} = OCCwin;
+        end
+        ACTwin{i} = AXISwin;
     end
     
 %     L = numel(xx);
@@ -20,16 +30,5 @@ function aux = viewThroughWindow(activity, type)
 %         f = -fs/2+fs/(2*L) : fs/L : fs/2-fs/(2*L);
 %     end
     
-%     tiledlayout(1,2);
-%     nexttile;
-%     plot(f, xx);
-%     xlabel("freq");
-%     ylabel("amplitude");
-%     title("w/out window");
-%     nexttile;
-%     plot(f, aux);
-%     xlabel("freq");
-%     ylabel("amplitude");
-%     title("w/ window");
 end
 
