@@ -1,8 +1,7 @@
-function plotDuration(STATICwin, TRANSITIONwin, fs)
+function [St, Tt] = plotDuration(STATICwin, TRANSITIONwin, fs)
     durACTS = getDuration(STATICwin, fs);
     durACTT = getDuration(TRANSITIONwin, fs);
    
-    
     figure();
     % static
     lenSIT = cell2mat(durACTS{1,1});
@@ -36,6 +35,9 @@ function plotDuration(STATICwin, TRANSITIONwin, fs)
     
     xlabel("Ocurrences");
     ylabel("Duration [min]");
+    
+    St = [lenSIT, lenLAY, lenSTAND];
+    Tt = [lenSTAND2SIT, lenSIT2STAND, lenSIT2LIE, lenLIE2SIT, lenSTAND2LIE, lenLIE2STAND];
 
 end
 

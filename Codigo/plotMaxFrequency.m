@@ -1,4 +1,4 @@
-function plotMaxFrequency(D, S, T, fs)
+function [Dx, Dy, Dz, NDx, NDy, NDz] = plotMaxFrequency(D, S, T, fs)
     maxACTD = getSPM(D, "true", fs);
     maxACTS = getSPM(S, "true", fs);
     maxACTT = getSPM(T, "true", fs);
@@ -21,6 +21,7 @@ function plotMaxFrequency(D, S, T, fs)
 
     maxDx = max([max(maxWx), max(maxWUx), max(maxWDx)]);
     minDx = min([min(maxWx), min(maxWUx), min(maxWDx)]);
+    Dx = [maxWx, maxWUx, maxWDx];
     upperBound = 0:length(maxWx);
     upperBound(1:end) = maxDx;
     area(upperBound,'basevalue', minDx, 'ShowBaseLine', 'off', 'FaceAlpha', 0.4, 'LineStyle', 'none', 'FaceColor', 'green');
@@ -30,8 +31,7 @@ function plotMaxFrequency(D, S, T, fs)
     maxSITx = cell2mat(maxACTS{1,1}{1,1});
     maxLAYx = cell2mat(maxACTS{1,2}{1,1});
     maxSTANDx = cell2mat(maxACTS{1,3}{1,1});
-    maxDx = [max(maxSITx), max(maxLAYx), max(maxSTANDx)];
-    minDx = [min(maxSITx), min(maxLAYx), min(maxSTANDx)];
+
     plot(maxSITx, 'or');
     hold on;
     plot(maxLAYx, 'or');
@@ -45,18 +45,22 @@ function plotMaxFrequency(D, S, T, fs)
     maxLIE2SITx = cell2mat(maxACTT{1,4}{1,1});
     maxSTAND2LIEx = cell2mat(maxACTT{1,5}{1,1});
     maxLIE2STANDx = cell2mat(maxACTT{1,6}{1,1});
+%     maxTx = max([max(maxSTAND2SITx), max(maxSIT2STANDx), max(maxSIT2LIEx), max(maxLIE2SITx), max(maxSTAND2LIEx), max(maxLIE2STANDx)]);
+%     minTx = min([min(maxSTAND2SITx), min(maxSIT2STANDx), min(maxSIT2LIEx), min(maxLIE2SITx), min(maxSTAND2LIEx), min(maxLIE2STANDx)]);
+%     
+%     maxNDx = max(maxTx, maxSx);
+%     minNDx = min(minTx, minSx);
+
+    NDx = [maxSITx, maxLAYx, maxSTANDx, ...
+        maxSTAND2SITx, maxSIT2STANDx, maxSIT2LIEx, maxLIE2SITx, maxSTAND2LIEx, maxLIE2STANDx];
+    
+    hold on;
     plot(maxSTAND2SITx, 'og');
-    hold on;
     plot(maxSIT2STANDx, 'og');
-    hold on;
     plot(maxSIT2LIEx, 'og');
-    hold on;
     plot(maxLIE2SITx, 'og');
-    hold on;
     plot(maxSTAND2LIEx, 'og');
-    hold on;
     plot(maxLIE2STANDx, 'og');
-    hold on;
     
     xlabel("X-AXIS");
     ylabel("DFT AMPLITUDE");
@@ -68,12 +72,19 @@ function plotMaxFrequency(D, S, T, fs)
     maxWy = cell2mat(maxACTD{1,1}{1,2});
     maxWUy = cell2mat(maxACTD{1,2}{1,2});
     maxWDy = cell2mat(maxACTD{1,3}{1,2});
+    maxDy = max([max(maxWy), max(maxWUy), max(maxWDy)]);
+    minDy = min([min(maxWy), min(maxWUy), min(maxWDy)]);
+    hold on ;
     plot(maxWy, 'ob');
-    hold on;
     plot(maxWUy, 'ob');
-    hold on;
     plot(maxWDy, 'ob');
-    hold on;
+    
+    Dy = [maxWy, maxWUy, maxWDy];
+    
+    upperBound = 0:length(maxWy);
+    upperBound(1:end) = maxDy;
+    area(upperBound,'basevalue', minDy, 'ShowBaseLine', 'off', 'FaceAlpha', 0.4, 'LineStyle', 'none', 'FaceColor', 'green');
+    
     % static
     maxSITy = cell2mat(maxACTS{1,1}{1,2});
     maxLAYy = cell2mat(maxACTS{1,2}{1,2});
@@ -83,12 +94,6 @@ function plotMaxFrequency(D, S, T, fs)
     plot(maxLAYy, 'or');
     hold on;
     plot(maxSTANDy, 'or');
-
-    maxDy = max([max(maxWy), max(maxWUy), max(maxWDy)]);
-    minDy = min([min(maxWy), min(maxWUy), min(maxWDy)]);
-    upperBound = 0:length(maxWy);
-    upperBound(1:end) = maxDy;
-    area(upperBound,'basevalue', minDy, 'ShowBaseLine', 'off', 'FaceAlpha', 0.4, 'LineStyle', 'none', 'FaceColor', 'green');
     
     % transition
     maxSTAND2SITy = cell2mat(maxACTT{1,1}{1,2});
@@ -97,34 +102,33 @@ function plotMaxFrequency(D, S, T, fs)
     maxLIE2SITy = cell2mat(maxACTT{1,4}{1,2});
     maxSTAND2LIEy = cell2mat(maxACTT{1,5}{1,2});
     maxLIE2STANDy = cell2mat(maxACTT{1,6}{1,2});
+    
+    hold on;
     plot(maxSTAND2SITy, 'og');
-    hold on;
     plot(maxSIT2STANDy, 'og');
-    hold on;
     plot(maxSIT2LIEy, 'og');
-    hold on;
     plot(maxLIE2SITy, 'og');
-    hold on;
     plot(maxSTAND2LIEy, 'og');
-    hold on;
     plot(maxLIE2STANDy, 'og');
-    hold on;
     
     xlabel("Y-AXIS");
     title("MAX DFT AMPLITUDE FOR XYZ");
     
+    NDy = [maxSITy, maxLAYy, maxSTANDy, ...
+        maxSTAND2SITy, maxSIT2STANDy, maxSIT2LIEy, maxLIE2SITy, maxSTAND2LIEy, maxLIE2STANDy];
+    
     % EIXO DOS ZZ
     nexttile;
+    hold on;
     % dinamic
     maxWz = cell2mat(maxACTD{1,1}{1,3});
     maxWUz = cell2mat(maxACTD{1,2}{1,3});
     maxWDz = cell2mat(maxACTD{1,3}{1,3});
     plot(maxWz, 'ob');
-    hold on;
     plot(maxWUz, 'ob');
-    hold on;
     plot(maxWDz, 'ob');
-    hold on;
+    
+    Dz = [maxWz, maxWUz, maxWDz];
 
     maxDz = max([max(maxWz), max(maxWUz), max(maxWDz)]);
     minDz = min([min(maxWz), min(maxWUz), min(maxWDz)]);
@@ -136,11 +140,12 @@ function plotMaxFrequency(D, S, T, fs)
     maxSITz = cell2mat(maxACTS{1,1}{1,3});
     maxLAYz = cell2mat(maxACTS{1,2}{1,3});
     maxSTANDz = cell2mat(maxACTS{1,3}{1,3});
+
+    hold on;
     plot(maxSITz, 'or');
-    hold on;
     plot(maxLAYz, 'or');
-    hold on;
     plot(maxSTANDz, 'or');
+    
     % transition
     maxSTAND2SITz = cell2mat(maxACTT{1,1}{1,3});
     maxSIT2STANDz = cell2mat(maxACTT{1,2}{1,3});
@@ -148,20 +153,18 @@ function plotMaxFrequency(D, S, T, fs)
     maxLIE2SITz = cell2mat(maxACTT{1,4}{1,3});
     maxSTAND2LIEz = cell2mat(maxACTT{1,5}{1,3});
     maxLIE2STANDz = cell2mat(maxACTT{1,6}{1,3});
+    
+    hold on;
     plot(maxSTAND2SITz, 'og');
-    hold on;
     plot(maxSIT2STANDz, 'og');
-    hold on;
     plot(maxSIT2LIEz, 'og');
-    hold on;
     plot(maxLIE2SITz, 'og');
-    hold on;
     plot(maxSTAND2LIEz, 'og');
-    hold on;
     plot(maxLIE2STANDz, 'og');
-    hold off;
 
-    xlabel("Z-AXIS");
-    %legend("DINAMIC","STATIC","TRANSITION","Location","SouthEast");
+    NDz = [maxSITz, maxLAYz, maxSTANDz, ...
+        maxSTAND2SITz, maxSIT2STANDz, maxSIT2LIEz, maxLIE2SITz, maxSTAND2LIEz, maxLIE2STANDz];
+
+%     xlabel("Z-AXIS");
 end
 

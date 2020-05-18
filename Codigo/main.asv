@@ -140,6 +140,11 @@ for i=1:1 %length(matfiles) - 2
 %     plotAxis(dftDINAMICwin, fs, sample_time, "dft", 2);
 %     plotAxis(DINAMICwin, fs, sample_time, "raw", 2);
     
+    % Ao representarmos graficamente os sinais individuais de cada
+    % eixo (e as respetivas DFTs), verificámos que havia uma diferença
+    % significativa entre eixos nas amplitudes máximas das DFTs.
+    % Como tal, decidimos usar essa característica como métrica de
+    % comparação entre atividades dinâmicas.
     
     
 

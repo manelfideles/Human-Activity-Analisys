@@ -1,4 +1,4 @@
-function plotMaxAmplitude(D, S, T)
+function [Dx, Dy, Dz, NDx, NDy, NDz] = plotMaxAmplitude(D, S, T)
     maxACTD = [];
     for i=1:length(D)
         ACT = D{i};
@@ -61,6 +61,8 @@ function plotMaxAmplitude(D, S, T)
     plot(maxWDx, 'ob');
     hold on;
     
+    Dx = [maxWx, maxWUx, maxWDx];
+    
     % static
     maxSITx = cell2mat(maxACTS{1,1}{1,1});
     maxLAYx = cell2mat(maxACTS{1,2}{1,1});
@@ -94,6 +96,9 @@ function plotMaxAmplitude(D, S, T)
     xlabel("X-AXIS");
     ylabel("MAX AMPLITUDE");
     
+    NDx = [maxSITx, maxLAYx, maxSTANDx, ...
+        maxSTAND2SITx, maxSIT2STANDx, maxSIT2LIEx, maxLIE2SITx, maxSTAND2LIEx, maxLIE2STANDx];
+    
     % EIXO DOS YY
     nexttile;
     % dinamic
@@ -115,6 +120,8 @@ function plotMaxAmplitude(D, S, T)
     plot(maxLAYy, 'or');
     hold on;
     plot(maxSTANDy, 'or');
+    
+    Dy = [maxWy, maxWUy, maxWDy];
     
     % transition
     maxSTAND2SITy = cell2mat(maxACTT{1,1}{1,2});
@@ -139,26 +146,29 @@ function plotMaxAmplitude(D, S, T)
     xlabel("Y-AXIS");
     title("MAX AMPLITUDE FOR XYZ");
     
+    NDy = [maxSITy, maxLAYy, maxSTANDy, ...
+        maxSTAND2SITy, maxSIT2STANDy, maxSIT2LIEy, maxLIE2SITy, maxSTAND2LIEy, maxLIE2STANDy];
+    
     % EIXO DOS ZZ
     nexttile;
+    hold on;
     % dinamic
     maxWz = cell2mat(maxACTD{1,1}{1,3});
     maxWUz = cell2mat(maxACTD{1,2}{1,3});
     maxWDz = cell2mat(maxACTD{1,3}{1,3});
     plot(maxWz, 'ob');
-    hold on;
     plot(maxWUz, 'ob');
-    hold on;
     plot(maxWDz, 'ob');
-    hold on;
+    
+    Dz = [maxWz, maxWUz, maxWDz];
+    
     % static
+    hold on;
     maxSITz = cell2mat(maxACTS{1,1}{1,3});
     maxLAYz = cell2mat(maxACTS{1,2}{1,3});
     maxSTANDz = cell2mat(maxACTS{1,3}{1,3});
     plot(maxSITz, 'or');
-    hold on;
     plot(maxLAYz, 'or');
-    hold on;
     plot(maxSTANDz, 'or');
     % transition
     maxSTAND2SITz = cell2mat(maxACTT{1,1}{1,3});
@@ -181,6 +191,10 @@ function plotMaxAmplitude(D, S, T)
     hold off;
 
     xlabel("Z-AXIS");
+    
+     NDz = [maxSITz, maxLAYz, maxSTANDz, ...
+        maxSTAND2SITz, maxSIT2STANDz, maxSIT2LIEz, maxLIE2SITz, maxSTAND2LIEz, maxLIE2STANDz];
+    
     %legend("DINAMIC","STATIC","TRANSITION","Location","SouthEast");
 end
 
