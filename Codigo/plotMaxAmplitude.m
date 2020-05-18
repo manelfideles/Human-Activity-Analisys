@@ -54,12 +54,10 @@ function [Dx, Dy, Dz, NDx, NDy, NDz] = plotMaxAmplitude(D, S, T)
     maxWx = cell2mat(maxACTD{1,1}{1,1});
     maxWUx = cell2mat(maxACTD{1,2}{1,1});
     maxWDx = cell2mat(maxACTD{1,3}{1,1});
+    hold on;
     plot(maxWx, 'ob');
-    hold on;
     plot(maxWUx, 'ob');
-    hold on;
     plot(maxWDx, 'ob');
-    hold on;
     
     Dx = [maxWx, maxWUx, maxWDx];
     

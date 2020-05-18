@@ -2,7 +2,7 @@ function my_spm = getSPM(dftACT, all, fs)
     % max freq para o eixo dos x
     % recebe uma atividade
     if (all == "false")
-        OCC = dftACT{1};
+        OCC = dftACT{2};
         spmOCC = [];
         for j = 1:length(OCC)
             L = numel(OCC{j});

@@ -41,6 +41,10 @@ maxAmpNonDinamicZ = {};
 staticDuration = {};
 transitionDuration = {};
 
+allMaxW = {};
+allMaxWU = {};
+allMaxWD = {};
+
 for i=1:1 %length(matfiles) - 2
     
     % 3 - IMPORTING AND PLOTTING RAW DATA
@@ -139,12 +143,14 @@ for i=1:1 %length(matfiles) - 2
     % 4.5 - Distinguishing dynamic activities
 %     plotAxis(dftDINAMICwin, fs, sample_time, "dft", 2);
 %     plotAxis(DINAMICwin, fs, sample_time, "raw", 2);
-    
-    
-    
+    [maxW, maxWU, maxWD] = plotMaxDFTAmplitude(dftDINAMICwin);
+    allMaxW{i} = maxW;
+    allMaxWU{i} = maxWU;
+    allMaxWD{i} = maxWD;
 
     % 5 - STFT
-    % STFT = getSTFT();
+    % Janela de tamanho 0.002 menor que a duração do sinal
+%     getSTFT(acc_z, fs);
     
 end
 
@@ -157,6 +163,10 @@ end
 
 % Differentiate static from transitional activities
 % plotAllDurations(staticDuration, transitionDuration);
+
+% Differenciate dynamic activities from each other
+ plotDinamic(allMaxW, allMaxWU, allMaxWD);
+
 
 % Correct outliers and calculate stats for SPM
 
